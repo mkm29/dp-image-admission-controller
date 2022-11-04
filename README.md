@@ -15,7 +15,7 @@ Initially use ArgoCD. More to follow.
 | `replicaCount` | Number of replicas | `1`
 | `image.registry` | Registry of image to pull for deployment | `""`
 | `image.repository` | Repository of image to pull for deployment | `security/admission/dp-image-admission-controller`
-| `image.tag` | Tag of image to pull from repository | `{{ Chart.AppVersion}}`
+| `image.tag` | Tag of image to pull from repository | `Chart.AppVersion`
 | `image.pullPolicy` | Policy of how to pull image | `IfNotPresent`
 | `env.tls` | Use TLS for communication | `true`
 | `env.logLevel` | Log level for Go binary | `trace`
