@@ -11,11 +11,11 @@ replicaCount: 1
 
 image:
   # registry
-  registry: 123456789.dkr.ecr.us-gov-east-1.amazonaws.com
+  registry: docker.io
   # image.repository: Repository of image to pull for deployment
-  repository: security/admission/dp-image-admission-controller
+  repository: smigula/webhook
   # image.tag: Tag of image to pull from repository. Default to appVersion
-  tag: ""
+  tag: "0.3.13"
   # image.pullPolicy: Policy of how to pull image
   pullPolicy: IfNotPresent
 

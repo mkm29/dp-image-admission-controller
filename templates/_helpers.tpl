@@ -52,10 +52,10 @@ Create the name of the service account to use
 Generate certificates for webhook
 */}}
 {{- define "dp-image-admission-controller.gen-certs" -}}
-{{- $fullName := ( include "dp-image-admission-controller.fullname" . ) -}}
-{{- $serviceName := ( printf "%s-%s" $fullName "webhook-service" ) -}}
-{{- $altNames := list ( printf "%s.%s" $serviceName .Release.Namespace ) ( printf "%s.%s.svc" $serviceName .Release.Namespace ) -}}
-{{- $ca := genCA "dp-image-admission-controller-ca" 3650 -}}
+{{- $fullName := "image-admission-controller-webhook-service" -}}
+{{- $serviceName := "image-admission-controller-webhook-service" -}}
+{{- $altNames := list ( "image-admission-controller-webhook-service.kube-system" ) ( "image-admission-controller-webhook-service.kube-system.svc" ) -}}
+{{- $ca := genCA "image-admission-controller-ca" 3650 -}}
 {{- $cert := genSignedCert $fullName nil $altNames 3650 $ca -}}
 caCert: {{ $ca.Cert | b64enc }}
 clientCert: {{ $cert.Cert | b64enc }}
