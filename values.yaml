@@ -11,7 +11,7 @@ replicaCount: 1
 
 image:
   # registry
-  registry: 123456789.dkr.ecr.us-gov-east-1.amazonaws.com
+  registry: 023620263533.dkr.ecr.us-gov-east-1.amazonaws.com
   # image.repository: Repository of image to pull for deployment
   repository: security/admission/dp-image-admission-controller
   # image.tag: Tag of image to pull from repository. Default to appVersion
@@ -24,7 +24,6 @@ env:
   tls: true
   logLevel: "trace"
   # registry to whitelist
-  registry: ""
   logJson: false
 
 serviceAccount:
