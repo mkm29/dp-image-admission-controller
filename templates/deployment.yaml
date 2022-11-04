@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "dp-image-admission-controller.fullname" . }}-webhook-deployment
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ template "dp-image-admission-controller.fullname" . }}
+{{ include "dp-image-admission-controller.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "dp-image-admission-controller.fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "dp-image-admission-controller.fullname" . }}
+    spec:
+      serviceAccountName: {{ template "dp-image-admission-controller.serviceAccountName" . }}
+      containers:
+        - name: {{ template "dp-image-admission-controller.fullname" . }}
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ default .Chart.AppVersion .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.webhookService.targetPort }}
+          volumeMounts:
+            - name: webhook-certs
+              mountPath: /etc/webhook/certs
+              readOnly: true
+          env:
+            - name: TLS
+              value: {{ .Values.env.tls }}
+            - name: LOG_LEVEL
+              value: {{ .Values.env.logLevel }}
+            - name: REGISTRY
+              value: {{ .Values.image.registry }}
+            - name: LOG_JSON
+              value: {{ .Values.env.logJson }}
+      volumes:
+        - name: webhook-certs
+          secret:
+            secretName: {{ template "dp-image-admission-controller.fullname" . }}-webhook-certs

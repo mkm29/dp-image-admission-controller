@@ -1,0 +1,29 @@
+{{- if .Values.rbac.create }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ template "dp-image-admission-controller.fullname" . }}-role
+  namespace: {{ .Values.namespace }}
+  labels:
+{{ include "dp-image-admission-controller.labels" . | indent 4 }}
+rules:
+  - apiGroups: [""]
+    resources: [namespaces]
+    verbs: [get, list]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ template "dp-image-admission-controller.fullname" . }}-rolebinding
+  namespace: {{ .Values.namespace }}
+  labels:
+{{ include "dp-image-admission-controller.labels" . | indent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ template "dp-image-admission-controller.fullname" . }}-role
+subjects:
+  - kind: ServiceAccount
+    name: {{ template "dp-image-admission-controller.serviceAccountName" . }}
+    namespace: {{ .Values.namespace }}
+{{- end }}
