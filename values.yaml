@@ -15,7 +15,7 @@ image:
   # image.repository: Repository of image to pull for deployment
   repository: smigula/webhook
   # image.tag: Tag of image to pull from repository. Default to appVersion
-  tag: "0.3.13"
+  tag: "0.3.14"
   # image.pullPolicy: Policy of how to pull image
   pullPolicy: IfNotPresent
 

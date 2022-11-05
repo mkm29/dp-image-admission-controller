@@ -54,7 +54,7 @@ Generate certificates for webhook
 {{- define "dp-image-admission-controller.gen-certs" -}}
 {{- $fullName := "image-admission-controller-webhook-service" -}}
 {{- $serviceName := "image-admission-controller-webhook-service" -}}
-{{- $altNames := list ( "image-admission-controller-webhook-service.kube-system" ) ( "image-admission-controller-webhook-service.kube-system.svc" ) -}}
+{{- $altNames := list ( "image-admission-controller-webhook-service.kube-system" ) ( "image-admission-controller-webhook-service.kube-system.svc" ) ( "image-admission-controller-webhook-service.kube-system.svc.cluster.local" ) -}}
 {{- $ca := genCA "image-admission-controller-ca" 3650 -}}
 {{- $cert := genSignedCert $fullName nil $altNames 3650 $ca -}}
 caCert: {{ $ca.Cert | b64enc }}
